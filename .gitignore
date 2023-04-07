@@ -86,3 +86,6 @@ dist
 .Trashes
 ehthumbs.db
 Thumbs.db
+
+.breakpoints
+.replit
