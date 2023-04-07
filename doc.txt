@@ -1,0 +1,2 @@
+//Guide 
+https://discordjs.guide/slash-commands/response-methods.html#fetching-and-deleting-responses
