@@ -1,55 +1,26 @@
-const { REST, Routes } = require('discord.js');
-const { Client, GatewayIntentBits } = require('discord.js');
+const { Client, GatewayIntentBits, Partials, Collection } = require('discord.js');
+const config = require('./src/config/config');
+/* const { loadCommands } = require('./src/service/upCommandsService'); */
 
-const client = new Client({ intents: [GatewayIntentBits.Guilds] });
-const TOKEN = "ODQ3MTA2NjM4MjkxOTI3MDky.GvFroq.laF4_IIPFtJeN129bx5UisnLWE_27BhniRySQ0"
-const CLIENT_ID = "847106638291927092"
+const { Guilds, GuildMembers, GuildMessages } = GatewayIntentBits;
+const { User, Message, GuildMember, ThreadMembers, Channel } = Partials;
 
-const user = interaction.options.getUser('target');
+const { loadEvents } = require('./src/Handlers/eventHandler');
+const { loadCommands } = require('./src/Handlers/commandsHandler');
 
-const commands = [
-  {
-    name: 'ping',
-    description: 'Replies with Pong!',
-  },
-  {
-    name: 'hola',
-    description: 'Replies with a greeting',
-  },
-  {
-    name: 'HolaPersonal',
-    description: ''
-  }
-];
+const client = new Client({ 
+  intents: [Guilds, GuildMembers, GuildMessages],
+  partials: [User, Message, GuildMember, ThreadMembers],
+});
 
-
-const rest = new REST({ version: '10' }).setToken(TOKEN);
-
-(async () => {
-  try {
-    console.log('Started refreshing application (/) commands.');
-
-    await rest.put(Routes.applicationCommands(CLIENT_ID), { body: commands });
-
-    console.log('Successfully reloaded application (/) commands.');
-  } catch (error) {
-    console.error(error);
-  }
-})();
-
+const TOKEN = config.DISCORD.TOKEN;
+client.commands = new Collection();
 
 client.on('ready', () => {
   console.log(`Logged in as ${client.user.tag}!`);
 });
 
-client.on('interactionCreate', async interaction => {
-  if (!interaction.isChatInputCommand()) return;
-
-  if (interaction.commandName === 'hola') {
-    await interaction.reply('hola marica ey');
-  } else if (interaction.commandName === 'HolaPersonal') {
-    await interaction.followUp(`Hi, <@${user.id}>.`);
-  }
+client.login(TOKEN).then(() => {
+  loadEvents(client);
+  loadCommands(client);
 });
-
-client.login(TOKEN);

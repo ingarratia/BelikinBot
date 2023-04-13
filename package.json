@@ -10,6 +10,10 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "discord.js": "^14.9.0"
+    "ascii-table": "^0.0.9",
+    "discord.js": "^14.9.0",
+    "fs": "^0.0.1-security",
+    "js-yaml": "^4.1.0",
+    "nodemon": "^2.0.22"
   }
 }

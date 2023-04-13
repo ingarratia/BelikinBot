@@ -1,0 +1,20 @@
+{
+    "commands": [
+        {
+            "name": "ping",
+            "description": "Replies with Pong!"
+        },
+        {
+            "name": "hola",
+            "description": "Replies with a greeting"
+        },
+        {
+            "name": "personal",
+            "description": "Replies with a greeting to a user"
+        },
+        {
+            "name": "limpiar",
+            "description": "Borra todos los mensajes entre el usuario y el bot en el canal actual"
+        }
+    ]
+}

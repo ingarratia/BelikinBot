@@ -90,3 +90,6 @@ Thumbs.db
 .breakpoints
 .replit
 .env
+.config.yaml
+config.yaml
+tmp.txt
